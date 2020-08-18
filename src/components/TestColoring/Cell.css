@@ -1,0 +1,13 @@
+.node {
+    /* height: 10px; */
+    /* width: 10px; */
+    padding: 1.5rem;
+}
+
+.node-unvisited {
+    background-color: rgb(190, 52, 190);
+}
+
+.node-visited {
+    background-color: orange;
+}
