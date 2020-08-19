@@ -1,0 +1,30 @@
+.node {
+    height: 30px;
+    width: 30px;
+    /* background-color: rgb(190, 52, 190); */
+    /* padding: 1.5rem; */
+}
+
+.node-unvisited {
+    background-color: rgb(190, 52, 190);
+}
+
+.node-visited {
+    background-color: orange;
+}
+
+.node-start {
+    background-color: blue;
+}
+
+.node-finish {
+    background-color: red;
+}
+
+.node-backtrack {
+    background-color: chartreuse;
+}
+
+.node-unsafe {
+    background-color: royalblue;
+}
