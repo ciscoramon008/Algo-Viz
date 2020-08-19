@@ -26,9 +26,13 @@
 }
 
 .node-unsafe {
-    background-color: royalblue;
+    background-color: yellow;
 }
 
 .node-could-be-start-cell {
     background-color: snow;
+}
+
+.node-could-be-end-cell {
+    background-color: rgb(40, 219, 34);
 }

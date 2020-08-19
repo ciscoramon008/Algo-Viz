@@ -11,6 +11,7 @@ const PathFindingAlgo = () => {
     const [dest, setDest] = useState({ x: 9, y: 45 })
     const [mousePressed, setMousePressed] = useState(false)
     const [changingStartPosition, setChangingStartPosition] = useState(false);
+    const [changingEndPosition, setChangingEndPosition] = useState(false);
 
     useEffect(() => {
         setGrid(getGrid())
@@ -35,20 +36,28 @@ const PathFindingAlgo = () => {
             GRID.push(row)
         }
     
-        GRID[source.x][source.y].isStartingPoint = true
-        GRID[dest.x][dest.y].isFinishPoint = true
+        GRID[9][5].isStartingPoint = true
+        GRID[9][45].isFinishPoint = true
 
         return GRID
     }
 
-    // const clearBoard = () => {
-    //     setGrid(getGrid())
-    //     for(let i=0; i<M; i++) {
-    //         for(let j=0; j<N; j++) {
-    //             document.getElementById(`node-${i}-${j}`).className = 'node node-unvisited'
-    //         }
-    //     }
-    // }
+    const clearBoard = () => {
+        let newGrid = [...getGrid()]
+        newGrid[9][5].isStartingPoint = false;
+        newGrid[9][45].isFinishPoint = false;
+        newGrid[source.x][source.y].isStartingPoint = true;
+        newGrid[dest.x][dest.y].isFinishPoint = true
+        setGrid(newGrid)
+
+        for(let i=0; i<20; i++) {
+            for(let j=0; j<50; j++) {
+                if(i === source.x && j === source.y) document.getElementById(`node-${i}-${j}`).className = 'node node-start'
+                else if(i === dest.x && j === dest.y) document.getElementById(`node-${i}-${j}`).className = 'node node-finish'
+                else document.getElementById(`node-${i}-${j}`).className = 'node node-unvisited'
+            }
+        }
+    }
 
     const handleChangeAdjacentColor = () => {
         const { nodesVisited, path } = BFS(grid, source, dest)
@@ -71,42 +80,62 @@ const PathFindingAlgo = () => {
         }
     }
 
-    // How would i change starting position
-    // 1. Create a boolean state [is the starting pos being altered]
-    // 2. If the start position is clicked set that bool to true
-    // 3. While this bool value is true if cursor is upon any cell
-    //    on mouse enter change the color to new starting point
-    //    on mouse leave change the color back to original
-    //    on mouse up make it the starting pos
-
-
     const handleMouseDown = (r, c) => {
         if(!changingStartPosition && r === source.x && c === source.y) {
             setChangingStartPosition(true);
+        } else if(!changingEndPosition && r === dest.x && c === dest.y) {
+            setChangingEndPosition(true);
+        } else {
+            setMousePressed(true);
         }
     }
 
     const handleMouseEnter = (r, c) => {
         if(changingStartPosition) {
             document.getElementById(`node-${r}-${c}`).className = 'node node-could-be-start-cell'
+        } else if(changingEndPosition) {
+            document.getElementById(`node-${r}-${c}`).className = 'node node-could-be-end-cell'
+        }
+    }
+
+    const handleMouseOver = (r, c) => {
+        if(mousePressed) {
+            document.getElementById(`node-${r}-${c}`).className = 'node node-unsafe'
         }
     }
 
     const handleMouseLeave = (r, c) => {
-        if(changingStartPosition) {
+        if(changingStartPosition || changingEndPosition) {
             document.getElementById(`node-${r}-${c}`).className = 'node node-unvisited'
         }
     }
 
     const handleMouseUp = (r, c) => {
         let newGrid = [...grid];
-        newGrid[source.x][source.y].isStartingPoint = false;
-        newGrid[r][c].isStartingPoint = true;
-        // document.getElementById(`node-${source.x}-${source.y}`).className = 'node node-unvisited'
-        document.getElementById(`node-${r}-${c}`).className = 'node node-start'
+
+        if(changingStartPosition) {
+            newGrid[source.x][source.y].isStartingPoint = false;
+            newGrid[r][c].isStartingPoint = true;
+            document.getElementById(`node-${r}-${c}`).className = 'node node-start'
+            setSource({x: r, y: c});
+            setChangingStartPosition(false);
+        } else if(changingEndPosition) {
+            newGrid[dest.x][dest.y].isFinishPoint = false;
+            newGrid[r][c].isFinishPoint = true;
+            document.getElementById(`node-${r}-${c}`).className = 'node node-finish'
+            setDest({x: r, y: c});
+            setChangingEndPosition(false);
+        } else {
+            for(let i=0; i<newGrid.length; i++) {
+                for(let j=0; j<newGrid[0].length; j++) {
+                    if((document.getElementById(`node-${i}-${j}`).classList).contains('node-unsafe')) {
+                        newGrid[i][j].safeToVisit = false;
+                    }
+                }
+            }
+            setMousePressed(false);
+        }
         setGrid(newGrid);
-        setSource({x: r, y: c});
-        setChangingStartPosition(false);
     }
 
     const toggleCell = (r, c) => {
@@ -127,6 +156,7 @@ const PathFindingAlgo = () => {
                             toggleCell={toggleCell}
                             handleMouseDown={handleMouseDown}
                             handleMouseEnter={handleMouseEnter}
+                            handleMouseOver={handleMouseOver}
                             handleMouseLeave={handleMouseLeave}
                             handleMouseUp={handleMouseUp}
                             {...cell} 
@@ -135,7 +165,7 @@ const PathFindingAlgo = () => {
                 </tbody>
             </table>
             <button className='btn btn-secondary' onClick={handleChangeAdjacentColor}>Color Adjacent</button>
-            {/* <button className='btn btn-default' onClick={clearBoard}>Clear Board</button> */}
+            <button className='btn btn-success' onClick={clearBoard}>Clear Board</button>
         </div>
     )
 }
