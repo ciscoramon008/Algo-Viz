@@ -28,3 +28,7 @@
 .node-unsafe {
     background-color: royalblue;
 }
+
+.node-could-be-start-cell {
+    background-color: snow;
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import './Cell.css'
 
-function Cell({ row, col, visited, isStartingPoint, isFinishPoint, safeToVisit, toggleCell, handleMouseDown, handleMouseOver, handleMouseUp }) {
+function Cell({ row, col, isStartingPoint, isFinishPoint, toggleCell, handleMouseDown, handleMouseEnter, handleMouseLeave, handleMouseUp }) {
     let classToAdd;
 
     if(isStartingPoint) classToAdd = 'node node-start'
@@ -15,7 +15,8 @@ function Cell({ row, col, visited, isStartingPoint, isFinishPoint, safeToVisit, 
             style={{ border: '1px solid black' }}
             // onClick={() => toggleCell(row, col)}
             onMouseDown={() => handleMouseDown(row, col)}
-            onMouseOver={() => handleMouseOver(row, col)}
+            onMouseEnter={() => handleMouseEnter(row, col)}
+            onMouseLeave={() => handleMouseLeave(row, col)}
             onMouseUp={() => handleMouseUp(row, col)}
         />
     )

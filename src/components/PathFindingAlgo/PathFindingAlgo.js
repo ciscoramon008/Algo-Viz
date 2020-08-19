@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react'
 import Cell from './Cell'
 import BFS from './Algorithms/BFS';
 
-// const SRC = {x: 9, y: 5};
-const DEST = {x: 9, y: 45};
 const M = 20
 const N = 50
 
 const PathFindingAlgo = () => {
     const [grid, setGrid] = useState([])
     const [source, setSource] = useState({ x: 9, y: 5 })
+    const [dest, setDest] = useState({ x: 9, y: 45 })
     const [mousePressed, setMousePressed] = useState(false)
+    const [changingStartPosition, setChangingStartPosition] = useState(false);
 
     useEffect(() => {
         setGrid(getGrid())
@@ -36,7 +36,7 @@ const PathFindingAlgo = () => {
         }
     
         GRID[source.x][source.y].isStartingPoint = true
-        GRID[DEST.x][DEST.y].isFinishPoint = true
+        GRID[dest.x][dest.y].isFinishPoint = true
 
         return GRID
     }
@@ -51,9 +51,7 @@ const PathFindingAlgo = () => {
     // }
 
     const handleChangeAdjacentColor = () => {
-        const { nodesVisited, path } = BFS(grid, source, DEST)
-        // console.log(BFS(grid, SRC, DEST))
-        // console.log(path)
+        const { nodesVisited, path } = BFS(grid, source, dest)
         path.pop()
 
         for(const i in nodesVisited) {
@@ -73,38 +71,43 @@ const PathFindingAlgo = () => {
         }
     }
 
+    // How would i change starting position
+    // 1. Create a boolean state [is the starting pos being altered]
+    // 2. If the start position is clicked set that bool to true
+    // 3. While this bool value is true if cursor is upon any cell
+    //    on mouse enter change the color to new starting point
+    //    on mouse leave change the color back to original
+    //    on mouse up make it the starting pos
+
+
     const handleMouseDown = (r, c) => {
-        // let newGrid = [...grid];
-        // newGrid[source.x][source.y].isStartingPoint = false;
-        // newGrid[r][c].isStartingPoint = true;
-        // document.getElementById(`node-${source.x}-${source.y}`).className = 'node node-unvisited'
-        // document.getElementById(`node-${r}-${c}`).className = 'node node-start'
-        // setGrid(newGrid);
-        // setSource({x: r, y: c});
-        if(!mousePressed) {
-            setMousePressed(true);
+        if(!changingStartPosition && r === source.x && c === source.y) {
+            setChangingStartPosition(true);
+        }
+    }
+
+    const handleMouseEnter = (r, c) => {
+        if(changingStartPosition) {
+            document.getElementById(`node-${r}-${c}`).className = 'node node-could-be-start-cell'
+        }
+    }
+
+    const handleMouseLeave = (r, c) => {
+        if(changingStartPosition) {
+            document.getElementById(`node-${r}-${c}`).className = 'node node-unvisited'
         }
     }
 
     const handleMouseUp = (r, c) => {
         let newGrid = [...grid];
-        // newGrid[source.x][source.y].isStartingPoint = false;
+        newGrid[source.x][source.y].isStartingPoint = false;
         newGrid[r][c].isStartingPoint = true;
         // document.getElementById(`node-${source.x}-${source.y}`).className = 'node node-unvisited'
         document.getElementById(`node-${r}-${c}`).className = 'node node-start'
         setGrid(newGrid);
         setSource({x: r, y: c});
-        setMousePressed(false);
+        setChangingStartPosition(false);
     }
-
-    const handleMouseOver = (r, c) => {
-        if(mousePressed) {
-            // document.getElementById(`node-${source.x}-${source.y}`).className = 'node node-unvisited'
-            document.getElementById(`node-${r}-${c}`).className = 'node node-start'
-            // setSource({ x: r, y: c })
-        }
-    }
-
 
     const toggleCell = (r, c) => {
         // let newGrid = [...grid]
@@ -123,7 +126,8 @@ const PathFindingAlgo = () => {
                             key={`${i}-${j}`}
                             toggleCell={toggleCell}
                             handleMouseDown={handleMouseDown}
-                            handleMouseOver={handleMouseOver}
+                            handleMouseEnter={handleMouseEnter}
+                            handleMouseLeave={handleMouseLeave}
                             handleMouseUp={handleMouseUp}
                             {...cell} 
                         />)}
