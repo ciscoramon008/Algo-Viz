@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/algo-viz/static/css/main.45613ca8.chunk.css",
-    "main.js": "/algo-viz/static/js/main.e7b48eb3.chunk.js",
-    "main.js.map": "/algo-viz/static/js/main.e7b48eb3.chunk.js.map",
+    "main.css": "/algo-viz/static/css/main.e104fad3.chunk.css",
+    "main.js": "/algo-viz/static/js/main.f14a5ec6.chunk.js",
+    "main.js.map": "/algo-viz/static/js/main.f14a5ec6.chunk.js.map",
     "runtime-main.js": "/algo-viz/static/js/runtime-main.9d2c7fe1.js",
     "runtime-main.js.map": "/algo-viz/static/js/runtime-main.9d2c7fe1.js.map",
-    "static/js/2.a3214d01.chunk.js": "/algo-viz/static/js/2.a3214d01.chunk.js",
-    "static/js/2.a3214d01.chunk.js.map": "/algo-viz/static/js/2.a3214d01.chunk.js.map",
+    "static/js/2.981687ae.chunk.js": "/algo-viz/static/js/2.981687ae.chunk.js",
+    "static/js/2.981687ae.chunk.js.map": "/algo-viz/static/js/2.981687ae.chunk.js.map",
     "index.html": "/algo-viz/index.html",
-    "precache-manifest.741512bdea81580d478853f3b9466f05.js": "/algo-viz/precache-manifest.741512bdea81580d478853f3b9466f05.js",
+    "precache-manifest.a898458dbae1ad2f2254bb1ce97145bd.js": "/algo-viz/precache-manifest.a898458dbae1ad2f2254bb1ce97145bd.js",
     "service-worker.js": "/algo-viz/service-worker.js",
-    "static/css/main.45613ca8.chunk.css.map": "/algo-viz/static/css/main.45613ca8.chunk.css.map",
-    "static/js/2.a3214d01.chunk.js.LICENSE.txt": "/algo-viz/static/js/2.a3214d01.chunk.js.LICENSE.txt"
+    "static/css/main.e104fad3.chunk.css.map": "/algo-viz/static/css/main.e104fad3.chunk.css.map",
+    "static/js/2.981687ae.chunk.js.LICENSE.txt": "/algo-viz/static/js/2.981687ae.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9d2c7fe1.js",
-    "static/js/2.a3214d01.chunk.js",
-    "static/css/main.45613ca8.chunk.css",
-    "static/js/main.e7b48eb3.chunk.js"
+    "static/js/2.981687ae.chunk.js",
+    "static/css/main.e104fad3.chunk.css",
+    "static/js/main.f14a5ec6.chunk.js"
   ]
 }
