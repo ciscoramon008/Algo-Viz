@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Cell from './Cell'
 import BFS from './Algorithms/BFS';
+import useOption from '../Hooks/useOption';
+import Dropdown from '../Dropdown';
 
 const M = 20
 const N = 50
 
 const PathFindingAlgo = () => {
+    const [currentAlgo, setCurrentAlgo] = useOption('value-1')
     const [grid, setGrid] = useState([])
     const [source, setSource] = useState({ x: 9, y: 5 })
     const [dest, setDest] = useState({ x: 9, y: 45 })
@@ -147,6 +150,7 @@ const PathFindingAlgo = () => {
 
     return (
         <div className='dark-mode' style={{ height: '100vh' }}>
+            <Dropdown currentValue={currentAlgo} setCurrentValue={setCurrentAlgo} />
             <table>
                 <tbody>
                     {grid.map((row, i) => 
