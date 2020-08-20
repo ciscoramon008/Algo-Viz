@@ -2,14 +2,14 @@ import React from 'react'
 
 function Dropdown({ currentValue, setCurrentValue }) {
     return (
-        <div>
-            <h1>{currentValue}</h1>
-            <select value={currentValue} onChange={setCurrentValue}>
-                <option value='value-1'>Value 1</option>
-                <option value='value-2'>Value 2</option>
-                <option value='value-3'>Value 3</option>
-                <option value='value-4'>Value 4</option>
-                <option value='value-5'>Value 5</option>
+        <div className='d-flex align-items-center'>
+            <span className='text-nowrap mr-10'>Select Algorithm:</span>
+            <select className='form-control' value={currentValue} onChange={setCurrentValue}>
+                <option value='A* Algorithm'>A* Algorithm</option>
+                <option value="Dijktra's Algorithm">Dijktra's Algorithm</option>
+                <option value='Greedy Method'>Greedy Method</option>
+                <option value='Breadth First Search'>Breadth First Search</option>
+                <option value='Depth First Search'>Depth First Search</option>
             </select>
         </div>
     )

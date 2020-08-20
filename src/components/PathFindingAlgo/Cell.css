@@ -1,20 +1,18 @@
 .node {
-    height: 30px;
-    width: 30px;
-    /* background-color: rgb(190, 52, 190); */
-    /* padding: 1.5rem; */
+    height: 25px;
+    width: 25px;
 }
 
 .node-unvisited {
-    background-color: rgb(190, 52, 190);
+    background-color: #7b2cbf;
 }
 
 .node-visited {
-    background-color: orange;
+    background-color: #10002b;
 }
 
 .node-start {
-    background-color: blue;
+    background-color: darkgreen;
 }
 
 .node-finish {
@@ -26,7 +24,7 @@
 }
 
 .node-unsafe {
-    background-color: yellow;
+    background-color: #f7d6e0;
 }
 
 .node-could-be-start-cell {

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Cell from './Cell'
 import BFS from './Algorithms/BFS';
 import useOption from '../Hooks/useOption';
-import Dropdown from '../Dropdown';
+import Navbar from '../Navbar';
 
 const M = 20
-const N = 50
+const N = 60
 
 const PathFindingAlgo = () => {
-    const [currentAlgo, setCurrentAlgo] = useOption('value-1')
+    const [currentAlgo, setCurrentAlgo] = useOption('Breadth First Search')
     const [grid, setGrid] = useState([])
     const [source, setSource] = useState({ x: 9, y: 5 })
     const [dest, setDest] = useState({ x: 9, y: 45 })
@@ -53,8 +53,8 @@ const PathFindingAlgo = () => {
         newGrid[dest.x][dest.y].isFinishPoint = true
         setGrid(newGrid)
 
-        for(let i=0; i<20; i++) {
-            for(let j=0; j<50; j++) {
+        for(let i=0; i<M; i++) {
+            for(let j=0; j<N; j++) {
                 if(i === source.x && j === source.y) document.getElementById(`node-${i}-${j}`).className = 'node node-start'
                 else if(i === dest.x && j === dest.y) document.getElementById(`node-${i}-${j}`).className = 'node node-finish'
                 else document.getElementById(`node-${i}-${j}`).className = 'node node-unvisited'
@@ -62,7 +62,7 @@ const PathFindingAlgo = () => {
         }
     }
 
-    const handleChangeAdjacentColor = () => {
+    const visualizeAlgorithm = () => {
         const { nodesVisited, path } = BFS(grid, source, dest)
         path.pop()
 
@@ -141,23 +141,20 @@ const PathFindingAlgo = () => {
         setGrid(newGrid);
     }
 
-    const toggleCell = (r, c) => {
-        // let newGrid = [...grid]
-        // newGrid[r][c].safeToVisit = false;
-        // document.getElementById(`node-${r}-${c}`).className = 'node node-unsafe'
-        // setGrid(newGrid);
-    }
-
     return (
         <div className='dark-mode' style={{ height: '100vh' }}>
-            <Dropdown currentValue={currentAlgo} setCurrentValue={setCurrentAlgo} />
+            <Navbar
+                currentValue={currentAlgo}
+                setCurrentValue={setCurrentAlgo}
+                visualizeAlgorithm={visualizeAlgorithm}
+                clearBoard={clearBoard}
+            />
             <table>
                 <tbody>
                     {grid.map((row, i) => 
                     <tr key={i}>
                         {row.map((cell, j) => <Cell
                             key={`${i}-${j}`}
-                            toggleCell={toggleCell}
                             handleMouseDown={handleMouseDown}
                             handleMouseEnter={handleMouseEnter}
                             handleMouseOver={handleMouseOver}
@@ -168,8 +165,6 @@ const PathFindingAlgo = () => {
                     </tr>)}
                 </tbody>
             </table>
-            <button className='btn btn-secondary' onClick={handleChangeAdjacentColor}>Color Adjacent</button>
-            <button className='btn btn-success' onClick={clearBoard}>Clear Board</button>
         </div>
     )
 }

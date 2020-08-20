@@ -1,6 +1,6 @@
 const obComp = (ob1, ob2) => ob1.x === ob2.x && ob2.y === ob1.y
-const d = [ { x: 0, y: 1 }, { x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: -1 } ]
-const isSafe = ({x, y}) => x >=0 && x < 20 && y >= 0 && y < 50
+const d = [ { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 0 }, { x: 0, y: -1 } ]
+const isSafe = ({x, y}) => x >=0 && x < 20 && y >= 0 && y < 60
 
 const BFS = (grid, start, end) => {
     let a = []

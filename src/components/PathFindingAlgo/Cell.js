@@ -13,7 +13,6 @@ function Cell({ row, col, isStartingPoint, isFinishPoint, handleMouseDown, handl
             id={`node-${row}-${col}`}
             className={classToAdd}
             style={{ border: '1px solid black' }}
-            // onClick={() => toggleCell(row, col)}
             onMouseDown={() => handleMouseDown(row, col)}
             onMouseEnter={() => handleMouseEnter(row, col)}
             onMouseOver={() => handleMouseOver(row, col)}
